@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+
+</head>
+
+<body ng-app="myApp">
+
+    <div ng-controller="personCtrl">
+        <p>The name is {{ name | uppercase }}</p>
+    </div>
+
+    <div ng-controller="personNameToSmall">
+        <p>The name is {{ name | lowercase }}</p>
+    </div>
+
+    <!-- sorting -->
+    <div ng-controller="namesCtrl">
+    
+        <h3>looping with objects</h3>
+        <ul>
+            <li ng-repeat="i in names | orderBy:'regNo' ">
+                {{ i.name + ', ' + i.regNo }}
+            </li>
+        </ul>
+    
+    </div>
+
+
+    <div ng-controller="currency">
+        <p> {{ price | currency }} </p>
+    </div>
+
+    <!-- check for the substring -->
+    <div ng-controller="isPresent">
+        <h3>Filter content based on the string</h3>
+        <ol>
+            <li ng-repeat="i in names | filter: 'y'">
+                {{ i }}
+            </li>
+        </ol>
+
+    </div>
+
+
+    <!-- Sort names based on user input -->
+
+    <div ng-controller="sortBasedOnUser" >
+
+        <h3>Sort names based on input</h3>
+        <input type="text" ng-model="input">
+        <ol>
+            <li ng-repeat="i in names | filter: input ">
+                {{ i }}
+            </li>
+        </ol>
+    </div>
+
+
+    <script>
+        var app = angular.module('myApp', []);
+
+        app.controller('personCtrl', function ($scope) {
+            $scope.name = 'Jyoshna';
+        });
+
+        app.controller('personNameToSmall', function ($scope) {
+            $scope.name = 'Jyoshna';
+        });
+
+        app.controller('namesCtrl', function ($scope) {
+            $scope.names = [
+                { name: 'Jyoshna', regNo: '201FA19035' },
+                { name: 'Manasa', regNo: '201FA04555' },
+                { name: 'Ajay', regNo: '211FA04010' }
+            ];
+        });
+
+        app.controller('currency', function ($scope) {
+            $scope.price = 100;
+        });
+
+        
+        app.controller ('isPresent', function ($scope) {
+            $scope.names = [
+                'Ajay',
+                'Jyoshna',
+                'Manasa',
+                'Lana Blakely'
+            ];
+        });
+
+        app.controller('sortBasedOnUser', function ($scope) {
+            $scope.names = [
+                'Ajay',
+                'Jyoshna',
+                'Manasa',
+                'Lana Blakely'
+            ];
+        });
+
+    </script>
+
+</body>
+
+</html>
