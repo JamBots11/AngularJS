@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Real-Time Search Engine</title>
+  <style>
+    /* Center the content on the page */
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    /* Style the search container */
+    .search-container {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    /* Style the search input */
+    input[type="text"] {
+      padding: 10px;
+    }
+
+    /* Style the result boxes */
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    li {
+      background-color: #3498db;
+      color: white;
+      padding: 10px;
+      margin: 5px 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div ng-app="searchApp" ng-controller="searchController">
+    <div class="search-container">
+      <h1>Search RegNos</h1>
+      <input type="text" ng-model="searchQuery" placeholder="Search..." />
+    </div>
+    <ul>
+      <li ng-repeat="result in searchResults">{{ result }}</li>
+    </ul>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script>
+    var app = angular.module("searchApp", []);
+
+    app.controller("searchController", function ($scope) {
+      $scope.searchQuery = "";
+      $scope.searchResults = [];
+
+      $scope.$watch("searchQuery", function () {
+        // Implement search logic here
+        $scope.searchResults = performSearch($scope.searchQuery);
+      });
+    });
+
+    function performSearch(query) {
+      var data = [
+        "211FA04010",
+        "211FA04014",
+        "201FA04010",
+        "201FA19035",
+        "201FA04555"
+      ];
+
+      // Filter results based on the query
+      return data.filter(function (result) {
+        return result.toLowerCase().includes(query.toLowerCase());
+      });
+    }
+  </script>
+</body>
+
+</html>

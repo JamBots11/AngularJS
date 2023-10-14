@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Real-Time Search Engine</title>
+  <style>
+    /* Add your CSS styles here */
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Search RegNos</h1>
+  <div ng-app="searchApp" ng-controller="searchController">
+    <input type="text" ng-model="searchQuery" placeholder="Search..." />
+    <div>
+      <ul>
+        <li ng-repeat="result in searchResults">{{ result }}</li>
+      </ul>
+    </div>
+  </div>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+  <script>
+    var app = angular.module("searchApp", []);
+
+    app.controller("searchController", function ($scope) {
+      $scope.searchQuery = "";
+      $scope.searchResults = [];
+
+      $scope.$watch("searchQuery", function () {
+        // Implement search logic here
+        $scope.searchResults = performSearch($scope.searchQuery);
+      });
+    });
+
+    function performSearch(query) {
+      var data = [
+        "211FA04010",
+        "211FA04014",
+        "201FA04010",
+        "201FA19035",
+        "201FA04555"
+      ];
+
+      // Filter results based on the query
+      return data.filter(function (result) {
+        return result.toLowerCase().includes(query.toLowerCase());
+      });
+    }
+  </script>
+</body>
+
+</html>
